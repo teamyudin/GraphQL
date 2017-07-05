@@ -1,0 +1,24 @@
+{
+  "name": "graphql",
+  "version": "1.0.0",
+  "description": "GraphQL Playground",
+  "main": "server.js",
+  "dependencies": {
+    "casual": "^1.5.14"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teamyudin/GraphQL.git"
+  },
+  "author": "Dmitry Yudin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/teamyudin/GraphQL/issues"
+  },
+  "homepage": "https://github.com/teamyudin/GraphQL#readme"
+}
