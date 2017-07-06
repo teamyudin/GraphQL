@@ -11,6 +11,7 @@
     "graphql-tools": "^1.0.0",
     "lodash": "^4.17.4",
     "mongoose": "^4.11.1",
+    "request-promise": "^4.2.1",
     "sequelize": "^4.2.1",
     "sqlite": "^2.8.0"
   },

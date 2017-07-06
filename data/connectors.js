@@ -2,6 +2,7 @@ import Sequelize from 'sequelize';
 import casual from 'casual';
 import _ from 'lodash';
 import Redis from 'redis'
+import rp from 'request-promise'
 
 const db = new Sequelize('blog', null, null, {
   dialect: 'sqlite',
@@ -21,19 +22,9 @@ const PostModel = db.define('post', {
 AuthorModel.hasMany(PostModel);
 PostModel.belongsTo(AuthorModel);
 
-//views in Redis
-
+//views count in Redis
 var redis = require("redis"),
     client = redis.createClient();
-
-//const mongo = Mongoose.connect('mongodb://localhost/views');
-
-//const ViewSchema = Mongoose.Schema({
-//  postId: Number,
-//  views: Number
-//});
-
-//const View = Mongoose.model('views', ViewSchema);
 
 casual.seed(123);
 
@@ -47,13 +38,7 @@ db.sync({force: true}).then(() => {
         title: 'A post by ${author.firstName}',
         text: casual.sentences(3)
       }).then( (post) => {
-
         client.set("postId" + post.id, post.id, redis.print);
-
-        // return View.update(
-        //   {postId: post.id},
-        //   {views: casual.integer(0, 100)},
-        //   {upsert: true});
       } );
     } );
   });
@@ -62,4 +47,16 @@ db.sync({force: true}).then(() => {
 const Author = db.models.author;
 const Post = db.models.post;
 
-export { Author, Post, client};
+const FortuneCookie = {
+  getOne(){
+    return rp('http://fortunecookieapi.herokuapp.com/v1/fortunes')
+    .then( (res) => JSON.parse(res))
+    .then( (res) => {
+      //console.log(casual.integer(0, res.length));
+      var message = res[casual.integer(0, res.length)].message;
+      return message;
+    });
+  }
+};
+
+export { Author, Post, client, FortuneCookie};
