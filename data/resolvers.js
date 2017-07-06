@@ -1,4 +1,4 @@
-import { Author, Post, client, FortuneCookie } from './connectors'
+import { Author, Post, RedisClient, FortuneCookie } from './connectors'
 
 const resolvers = {
   Query: {
@@ -19,7 +19,7 @@ const resolvers = {
       return post.getAuthor();
     },
     views(post) {
-      return client.getAsync('postId' + post.id)
+      return RedisClient.getAsync('postId' + post.id)
       .then( (r) => {return r});
     }
   }

@@ -23,9 +23,8 @@ const PostModel = db.define('post', {
 AuthorModel.hasMany(PostModel);
 PostModel.belongsTo(AuthorModel);
 
-//views count in Redis
-var redis = require("redis"),
-    client = redis.createClient();
+const redis = require("redis"),
+    RedisClient = redis.createClient();
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
@@ -42,8 +41,7 @@ db.sync({force: true}).then(() => {
         title: 'A post by ' + author.firstName,
         text: casual.sentences(5)
       }).then( (post) => {
-        console.log("postId" + post.id);
-        client.set("postId" + post.id, casual.integer(4, 500));
+        RedisClient.set("postId" + post.id, casual.integer(4, 500));
       } );
     } );
   });
@@ -64,4 +62,4 @@ const FortuneCookie = {
   }
 };
 
-export { Author, Post, client, FortuneCookie};
+export { Author, Post, RedisClient, FortuneCookie};
