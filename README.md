@@ -8,7 +8,8 @@ npm install
 npm run start
 ```
 Then open [http://localhost:3000/graphiql](http://localhost:3000/graphql)
-For UI, open [[http://localhost:3001](http://localhost:3001)]
+
+For UI, open [http://localhost:3001](http://localhost:3001)
 
 When you paste this on the left side of the page:
 
