@@ -35,7 +35,7 @@ db.sync({force: true}).then(() => {
       lastName: casual.last_name
     }).then( (author) => {
       return author.createPost({
-        title: 'A post by ${author.firstName}',
+        title: 'A post by ' + author.firstName,
         text: casual.sentences(3)
       }).then( (post) => {
         client.set("postId" + post.id, post.id, redis.print);
