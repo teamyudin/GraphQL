@@ -1,4 +1,4 @@
-import { Author, Post } from './connectors'
+import { Author, Post, client } from './connectors'
 
 const resolvers = {
   Query: {
@@ -14,6 +14,9 @@ const resolvers = {
   Post: {
     author(post){
       return post.getAuthor();
+    },
+    views(post) {
+      return client.get('postId' + post.id);
     }
   }
 }
