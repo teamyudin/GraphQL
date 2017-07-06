@@ -3,6 +3,7 @@ import casual from 'casual';
 import _ from 'lodash';
 import Redis from 'redis'
 import rp from 'request-promise'
+import bluebird from 'bluebird'
 
 const db = new Sequelize('blog', null, null, {
   dialect: 'sqlite',
@@ -26,6 +27,9 @@ PostModel.belongsTo(AuthorModel);
 var redis = require("redis"),
     client = redis.createClient();
 
+bluebird.promisifyAll(redis.RedisClient.prototype);
+bluebird.promisifyAll(redis.Multi.prototype);
+
 casual.seed(123);
 
 db.sync({force: true}).then(() => {
@@ -36,9 +40,10 @@ db.sync({force: true}).then(() => {
     }).then( (author) => {
       return author.createPost({
         title: 'A post by ' + author.firstName,
-        text: casual.sentences(3)
+        text: casual.sentences(5)
       }).then( (post) => {
-        client.set("postId" + post.id, post.id, redis.print);
+        console.log("postId" + post.id);
+        client.set("postId" + post.id, casual.integer(4, 500));
       } );
     } );
   });

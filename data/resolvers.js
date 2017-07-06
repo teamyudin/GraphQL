@@ -19,7 +19,8 @@ const resolvers = {
       return post.getAuthor();
     },
     views(post) {
-      return client.get('postId' + post.id);
+      return client.getAsync('postId' + post.id)
+      .then( (r) => {return r});
     }
   }
 }
