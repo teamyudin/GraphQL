@@ -10,10 +10,7 @@ import {
 import Fortune from "./Fortune";
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://localhost:3001/graphql',
-  opts: {
-          mode: 'no-cors',
-      }
+  uri: 'http://localhost:3001/graphql'
 });
 
 const client = new ApolloClient({
