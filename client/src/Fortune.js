@@ -4,12 +4,11 @@ import { gql, graphql} from 'react-apollo';
 export const Fortune = ({ data: { loading, fortune, error } }) => {
   if (loading) return <div>Loading</div>;
   if (error) return <h1>ERROR</h1>;
-  console.log(fortune)
   return (
     <div>
-    Hello:
+    Fortune:
       {
-        error
+        fortune
       }
     </div>
   )
